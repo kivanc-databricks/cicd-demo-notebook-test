@@ -65,6 +65,7 @@ stages:
         python -m pip install --upgrade pip nutter
         # this is because of the old dependency inside Nutter
         pip install -r unit-requirements.txt
+        pip install -e .
         python -m pip install --upgrade databricks-cli
       displayName: 'Install dependencies'
 
@@ -87,14 +88,14 @@ stages:
       displayName: 'Execute Nutter tests'
 
     - script: |
-        dbx deploy --jobs=cicd-demo-notebook-test --files-only
+        dbx deploy --environment=staging --jobs=cicd-demo-notebook-test --files-only
       displayName: 'Deploy the job'
       env:
         DATABRICKS_HOST: $(DATABRICKS_HOST)
         DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
 
     - script: |
-        dbx launch --job=cicd-demo-notebook-test --as-run-submit --trace
+        dbx launch --environment=staging --job=cicd-demo-notebook-test --as-run-submit --trace
       displayName: 'Launch integration on test'
       env:
         DATABRICKS_HOST: $(DATABRICKS_HOST)
@@ -132,12 +133,13 @@ stages:
       - script: |
           python -m pip install --upgrade pip nutter
           # this is because of the old dependency inside Nutter
+          pip install -r unit-requirements.txt
           python -m pip install --upgrade databricks-cli
         displayName: 'Install dependencies'
 
       - script: |
           echo "Checking out the releases branch"
-          databricks repos update --path $(STAGING_DIRECTORY) --branch "$(Build.SourceBranchName)"
+          databricks repos update --path $(PRODUCTION_DIRECTORY) --branch "$(Build.SourceBranchName)"
         env:
           DATABRICKS_HOST: $(DATABRICKS_HOST)
           DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
@@ -145,11 +147,18 @@ stages:
 
 # We can do a separate set of the tests for release branches
       - script: |
-          nutter run "$(STAGING_DIRECTORY)/unit-tests" --cluster_id $(CLUSTER_ID) --recursive --junit_report --timeout 500
+          nutter run "$(PRODUCTION_DIRECTORY)/unit-tests" --cluster_id $(CLUSTER_ID) --recursive --junit_report --timeout 500
         env:
           DATABRICKS_HOST: $(DATABRICKS_HOST)
           DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
         displayName: 'Execute Nutter tests on release'
+
+      - script: |
+          dbx deploy --job=cicd-demo-notebook-test --environment=production
+        displayName: 'Launch integration on test'
+        env:
+          DATABRICKS_HOST: $(DATABRICKS_HOST)
+          DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
 
       - task: PublishTestResults@2
         condition: succeededOrFailed()
