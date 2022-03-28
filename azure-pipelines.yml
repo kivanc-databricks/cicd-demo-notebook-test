@@ -87,7 +87,7 @@ stages:
       displayName: 'Execute Nutter tests'
 
     - script: |
-        dbx deploy --jobs=cicd-demo-notebook-test
+        dbx deploy --notebook=cicd-demo-notebook-test --files-only
       displayName: 'Deploy the job'
       env:
         DATABRICKS_HOST: $(PROD_DATABRICKS_HOST)
