@@ -95,7 +95,7 @@ stages:
         DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
 
     - script: |
-        dbx execute --environment=staging --job=cicd-demo-notebook-test --cluster_id $(CLUSTER_ID) --as-run-submit --trace
+        dbx execute --environment=staging --job=cicd-demo-notebook-test --cluster-id $(CLUSTER_ID) --as-run-submit --trace
       displayName: 'Launch job on staging'
       env:
         DATABRICKS_HOST: $(DATABRICKS_HOST)
