@@ -20,7 +20,3 @@ def upper_columns(df: DataFrame, cols: list) -> DataFrame:
             new_cols.append(F.col(field.name))
             
     return df.select(*new_cols)
-
-# COMMAND ----------
-
-display(spark.sql("select * from my_cool_data"))
