@@ -90,8 +90,8 @@ stages:
         dbx deploy --jobs=cicd-demo-notebook-test --files-only
       displayName: 'Deploy the job'
       env:
-        DATABRICKS_HOST: $(PROD_DATABRICKS_HOST)
-        DATABRICKS_TOKEN: $(PROD_DATABRICKS_TOKEN)
+        DATABRICKS_HOST: $(DATABRICKS_HOST)
+        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
 
     - task: PublishTestResults@2
       condition: succeededOrFailed()
