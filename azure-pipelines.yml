@@ -93,6 +93,13 @@ stages:
         DATABRICKS_HOST: $(DATABRICKS_HOST)
         DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
 
+    - script: |
+        dbx launch --job=cicd-demo-notebook-test --as-run-submit --trace
+      displayName: 'Launch integration on test'
+      env:
+        DATABRICKS_HOST: $(DATABRICKS_HOST)
+        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
+
     - task: PublishTestResults@2
       condition: succeededOrFailed()
       inputs:
