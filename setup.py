@@ -1,5 +1,5 @@
 from setuptools import find_packages, setup
-from cicd_demo_philips import __version__
+from my_package import __version__
 
 setup(
     name="cicd_demo_notebook_test",
