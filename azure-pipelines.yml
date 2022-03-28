@@ -96,7 +96,7 @@ stages:
 
     - script: |
         dbx execute --environment=staging --job=cicd-demo-notebook-test --cluster_id $(CLUSTER_ID) --as-run-submit --trace
-      displayName: 'Launch integration on test'
+      displayName: 'Launch job on staging'
       env:
         DATABRICKS_HOST: $(DATABRICKS_HOST)
         DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
@@ -155,7 +155,7 @@ stages:
 
       - script: |
           dbx deploy --job=cicd-demo-notebook-test --environment=production
-        displayName: 'Launch integration on test'
+        displayName: 'Deploy job'
         env:
           DATABRICKS_HOST: $(DATABRICKS_HOST)
           DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
