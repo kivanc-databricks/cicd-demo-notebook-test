@@ -2,7 +2,7 @@ steps:
 - script: |
    curl -s -n -X POST -o "/tmp/$(Build.SourceBranchName)-out.json" "$DATABRICKS_HOST/api/2.0/projects/fetch-and-checkout" \
              -H "Authorization: Bearer $DATABRICKS_TOKEN" \
-             -d "{\"path\": \"/Projects/Production/databricks-nutter-projects-demo\", \"branch\": \"$(Build.SourceBranchName)\"}" && \
+             -d "{\"path\": \"/Projects/Production/cicd-demo-notebook-test\", \"branch\": \"$(Build.SourceBranchName)\"}" && \
    cat "/tmp/$(Build.SourceBranchName)-out.json" && \
    grep -v error_code "/tmp/$(Build.SourceBranchName)-out.json"
   displayName: 'Update project in the Production folder'

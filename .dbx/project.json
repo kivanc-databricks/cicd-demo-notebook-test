@@ -1,0 +1,19 @@
+{
+  "environments": {
+    "default": {
+      "profile": "DEFAULT",
+      "workspace_dir": "/Shared/dbx/cicd_demo_notebook_test",
+      "artifact_location": "dbfs:/Shared/dbx/projects/cicd_demo_notebook_test"
+    },
+    "staging": {
+      "profile": "DEFAULT",
+      "workspace_dir": "/Shared/dbx/cicd_demo_notebook_test",
+      "artifact_location": "dbfs:/Shared/dbx/projects/cicd_demo_notebook_test"
+    },
+    "production": {
+      "profile": "DEFAULT",
+      "workspace_dir": "/Shared/dbx/cicd_demo_notebook_test",
+      "artifact_location": "dbfs:/Shared/dbx/projects/cicd_demo_notebook_test"
+    }
+  }
+}
