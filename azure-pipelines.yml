@@ -94,12 +94,12 @@ stages:
         DATABRICKS_HOST: $(DATABRICKS_HOST)
         DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
 
-    - script: |
-        dbx launch --job=cicd-demo-notebook-test --as-run-submit --trace
-      displayName: 'Launch job on staging'
-      env:
-        DATABRICKS_HOST: $(DATABRICKS_HOST)
-        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
+#    - script: |
+#        dbx launch --job=cicd-demo-notebook-test --as-run-submit --trace
+#      displayName: 'Launch job on staging'
+#      env:
+#        DATABRICKS_HOST: $(DATABRICKS_HOST)
+#        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
 
     - task: PublishTestResults@2
       condition: succeededOrFailed()
@@ -144,7 +144,7 @@ stages:
       - script: |
           echo "Checking out the releases branch"
           echo $(Build.SourceBranchName)
-          databricks repos update --path $(PRODUCTION_DIRECTORY) --branch "$(Build.SourceBranchName)"
+          databricks repos update --path $(PRODUCTION_DIRECTORY) --tag "$(Build.SourceBranchName)"
         env:
           DATABRICKS_HOST: $(DATABRICKS_HOST)
           DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
