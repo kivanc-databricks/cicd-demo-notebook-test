@@ -19,10 +19,10 @@ trigger:
       - README.md
       - images
       - terraform
-#  tags:
-#    include:
-#      - v*.*
-#      - prod
+  tags:
+    include:
+      - v*.*
+      - prod
 
 # This need an additional debugging
 # pr:
