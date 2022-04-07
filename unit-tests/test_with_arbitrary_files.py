@@ -38,7 +38,7 @@ class TestFixtureArbitraryFiles(NutterFixture):
   def assertion_code2_arbitrary_files(self):
     some_tbl = sqlContext.sql(f'SELECT COUNT(*) AS total FROM {self.code2_table_name}')
     first_row = some_tbl.first()
-    assert (first_row[0] == 10)
+    assert (first_row[0] == 11)
 
   def after_code2_arbitrary_files(self):
     spark.sql(f"drop table {self.code2_table_name}")
